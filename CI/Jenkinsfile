@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+
+    environment {
+        REGISTRY = "docker.io/ritesh57"
+        SERVICE_NAME = "api-gateway"
+        IMAGE_TAG = "v${BUILD_NUMBER}"
+    }
+
+    stages {
+
+        stage('checkout'){
+            steps {
+                checkout scm
+            }
+        }
+    }
+
+    stage('Build Docker Image'){
+        steps {
+            dir('CI/{SERVICE_NAME}'){
+                sh """
+                docker build -t ${REGISTRY}/${SERVICE_NAME}:${IMAGE_TAG} .
+                """
+            }
+        }
+    }
+
+    stage('Push Docker Image'){
+        steps {
+            sh """
+            docker push ${REGISTRY}/${SERVICE_NAME}:${IMAGE_TAG}
+            """
+        }
+    }
+
+    stage('Update GitOps Repo'){
+        steps {
+            sh """
+            git clone https://github.com/RiteshKaushal57/CI-CD.git
+            cd CD/helm/mern-chart
+
+            sed -i 's/tag:.*/tag: ${IMAGE_TAG}/' values.yaml
+
+            git add values.yaml
+            git commit -m "Update api-gateway image to ${IMAGE_TAG}"
+            git push origin static main(args) {
+                
+            }
+            """
+        }
+    }
+
+
+}
