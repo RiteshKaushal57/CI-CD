@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: {{ $name }}
-          image: "{{ $svc.image }}:{{ $svc.tag }}"
+          image: "{{ $svc.image.repository }}:{{ $svc.image.tag }}"
           ports:
             - containerPort: {{ $svc.port }}
 ---
