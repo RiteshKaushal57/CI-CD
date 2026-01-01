@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mern-app
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/RiteshKaushal57/CI-CD.git
+    targetRevision: main
+    path: CD/helm/mern-chart
+    helm:
+      valueFiles:
+        - values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mern-app
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
