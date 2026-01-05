@@ -8,6 +8,10 @@ spec:
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
+    command:
+    - /busybox/sleep
+    args:
+    - "9999999"
     tty: true
     volumeMounts:
     - name: docker-config
@@ -49,8 +53,9 @@ spec:
               sh """
                 /kaniko/executor \
                   --context=${WORKSPACE}/CI/${service} \
-                  --dockerfile=Dockerfile \
+                  --dockerfile=${WORKSPACE}/CI/${service}/Dockerfile \
                   --destination=${REGISTRY}/${service}:${IMAGE_TAG} \
+                  --verbosity=info \
                   --cache=true
               """
             }
@@ -71,7 +76,6 @@ spec:
           ]
 
           dir("CD/helm/mern-chart") {
-
             services.each { service ->
               sh """
                 yq -i '.services.${service}.tag = "${IMAGE_TAG}"' values.yaml
