@@ -8,8 +8,6 @@ spec:
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
-    command:
-    - cat
     tty: true
     volumeMounts:
     - name: docker-config
@@ -50,9 +48,9 @@ spec:
             services.each { service ->
               sh """
                 /kaniko/executor \
-                  --context ${WORKSPACE}/CI/${service} \
-                  --dockerfile Dockerfile \
-                  --destination ${REGISTRY}/${service}:${IMAGE_TAG} \
+                  --context=${WORKSPACE}/CI/${service} \
+                  --dockerfile=Dockerfile \
+                  --destination=${REGISTRY}/${service}:${IMAGE_TAG} \
                   --cache=true
               """
             }
