@@ -27,6 +27,7 @@ spec:
 # GakI11yWKS23Rfpn
 
 # TtqPKUhiDuLJbkjJncj6y1
+# dE3Thpr5kzIWr3o7pN1asF
 
 # helm uninstall jenkins -n jenkins
 # kubectl delete pvc -n jenkins --all
@@ -38,3 +39,4 @@ spec:
 # cat /run/secrets/additional/chart-admin-password
 
 # kubectl port-forward svc/jenkins 8081:8080 -n jenkins
+# kubectl port-forward svc/argocd-server -n argocd 8080:443 --address=0.0.0.0 &

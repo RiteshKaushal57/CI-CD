@@ -8,7 +8,7 @@ spec:
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
-    tty:true
+    tty: true
     volumeMounts:
     - name: docker-config
       mountPath: /kaniko/.docker
