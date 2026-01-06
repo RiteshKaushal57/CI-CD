@@ -8,11 +8,7 @@ spec:
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
-    command:
-    - /busybox/sleep
-    args:
-    - "9999999"
-    tty: true
+    imagePullPolicy: Always
     volumeMounts:
     - name: docker-config
       mountPath: /kaniko/.docker
@@ -41,7 +37,6 @@ spec:
       steps {
         container('kaniko') {
           script {
-
             def services = [
               "api-gateway",
               "auth-service",
@@ -52,10 +47,9 @@ spec:
             services.each { service ->
               sh """
                 /kaniko/executor \
-                  --context=${WORKSPACE}/CI/${service} \
-                  --dockerfile=${WORKSPACE}/CI/${service}/Dockerfile \
-                  --destination=${REGISTRY}/${service}:${IMAGE_TAG} \
-                  --verbosity=info \
+                  --context ${WORKSPACE}/CI/${service} \
+                  --dockerfile ${WORKSPACE}/CI/${service}/Dockerfile \
+                  --destination ${REGISTRY}/${service}:${IMAGE_TAG} \
                   --cache=true
               """
             }
@@ -67,7 +61,6 @@ spec:
     stage('Update GitOps Repo') {
       steps {
         script {
-
           def services = [
             "api-gateway",
             "auth-service",
