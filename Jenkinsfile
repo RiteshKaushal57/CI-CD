@@ -99,7 +99,7 @@ spec:
               git config --global user.name "Ritesh Kaushal"
 
               git fetch origin
-              git checkout main || git checkout -b main origin/main
+              git checkout -b main origin/main
               """
 
               services.each { service ->
