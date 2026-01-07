@@ -93,7 +93,11 @@ spec:
 
             dir("CD/helm/mern-chart") {
 
-              sh "git config --global --add safe.directory ${WORKSPACE}"
+              sh """
+              git config --global --add safe.directory ${WORKSPACE}
+              git config --global user.email "riteshkaushal57@gmail.com"
+              git config --global user.name "Ritesh Kaushal"
+              """
 
               services.each { service ->
                 sh "yq -i '.services.${service}.tag = \"${IMAGE_TAG}\"' values.yaml"
