@@ -9,17 +9,26 @@ spec:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
     command:
-      - /busybox/sleep
+    - /busybox/sleep
     args:
-      - "999999"
+    - "999999"
     tty: true
     volumeMounts:
-      - name: docker-config
-        mountPath: /kaniko/.docker
-  volumes:
     - name: docker-config
-      secret:
-        secretName: dockerhub-creds
+      mountPath: /kaniko/.docker
+    - name: workspace-volume
+      mountPath: /home/jenkins/agent
+
+  volumes:
+  - name: docker-config
+    secret:
+      secretName: dockerhub-creds
+      items:
+      - key: .dockerconfigjson
+        path: config.json
+
+  - name: workspace-volume
+    emptyDir: {}
 """
     }
   }
@@ -74,9 +83,7 @@ spec:
 
           dir("CD/helm/mern-chart") {
             services.each { service ->
-              sh """
-                yq -i '.services.${service}.tag = "${IMAGE_TAG}"' values.yaml
-              """
+              sh "yq -i '.services.${service}.tag = \"${IMAGE_TAG}\"' values.yaml"
             }
 
             sh """
