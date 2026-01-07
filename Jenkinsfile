@@ -20,7 +20,7 @@ spec:
       mountPath: /home/jenkins/agent
 
   - name: tools
-    image: mikefarah/yq:4
+    image: ritesh57/ci-tools:1.0
     command:
     - cat
     tty: true
