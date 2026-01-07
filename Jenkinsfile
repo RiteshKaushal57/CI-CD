@@ -97,6 +97,9 @@ spec:
               git config --global --add safe.directory ${WORKSPACE}
               git config --global user.email "riteshkaushal57@gmail.com"
               git config --global user.name "Ritesh Kaushal"
+
+              git fetch origin
+              git checkout main || git checkout -b main origin/main
               """
 
               services.each { service ->
