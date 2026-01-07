@@ -81,31 +81,34 @@ spec:
     }
 
     stage('Update GitOps Repo') {
-  steps {
-    container('tools') {
-      script {
-        def services = [
-          "api-gateway",
-          "auth-service",
-          "order-service",
-          "frontend"
-        ]
+      steps {
+        container('tools') {
+          script {
+            def services = [
+              "api-gateway",
+              "auth-service",
+              "order-service",
+              "frontend"
+            ]
 
-        dir("CD/helm/mern-chart") {
+            dir("CD/helm/mern-chart") {
 
-          sh "git config --global --add safe.directory ${WORKSPACE}"
+              sh "git config --global --add safe.directory ${WORKSPACE}"
 
-          services.each { service ->
-            sh "yq -i '.services.${service}.tag = \"${IMAGE_TAG}\"' values.yaml"
+              services.each { service ->
+                sh "yq -i '.services.${service}.tag = \"${IMAGE_TAG}\"' values.yaml"
+              }
+
+              sh """
+                git add values.yaml
+                git commit -m "Update images to ${IMAGE_TAG}"
+                git push origin main
+              """
+            }
           }
-
-          sh """
-            git add values.yaml
-            git commit -m "Update images to ${IMAGE_TAG}"
-            git push origin main
-          """
         }
       }
     }
+
   }
-}
+}     
