@@ -7,15 +7,19 @@ kind: Pod
 spec:
   containers:
   - name: kaniko
-    image: gcr.io/kaniko-project/executor:latest
+    image: gcr.io/kaniko-project/executor:debug
+    command:
+      - /busybox/sleep
+    args:
+      - "999999"
     tty: true
     volumeMounts:
-    - name: docker-config
-      mountPath: /kaniko/.docker
+      - name: docker-config
+        mountPath: /kaniko/.docker
   volumes:
-  - name: docker-config
-    secret:
-      secretName: dockerhub-creds
+    - name: docker-config
+      secret:
+        secretName: dockerhub-creds
 """
     }
   }
@@ -50,7 +54,7 @@ spec:
                   --context ${WORKSPACE}/CI/${service} \
                   --dockerfile ${WORKSPACE}/CI/${service}/Dockerfile \
                   --destination ${REGISTRY}/${service}:${IMAGE_TAG} \
-                  --cache=true
+                  --verbosity=info
               """
             }
           }
