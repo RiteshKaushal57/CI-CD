@@ -19,6 +19,15 @@ spec:
     - name: workspace-volume
       mountPath: /home/jenkins/agent
 
+  - name: tools
+    image: mikefarah/yq:4
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - name: workspace-volume
+      mountPath: /home/jenkins/agent
+
   volumes:
   - name: docker-config
     secret:
@@ -73,24 +82,26 @@ spec:
 
     stage('Update GitOps Repo') {
       steps {
-        script {
-          def services = [
-            "api-gateway",
-            "auth-service",
-            "order-service",
-            "frontend"
-          ]
+        container('tools') {
+          script {
+            def services = [
+              "api-gateway",
+              "auth-service",
+              "order-service",
+              "frontend"
+            ]
 
-          dir("CD/helm/mern-chart") {
-            services.each { service ->
-              sh "yq -i '.services.${service}.tag = \"${IMAGE_TAG}\"' values.yaml"
+            dir("CD/helm/mern-chart") {
+              services.each { service ->
+                sh "yq -i '.services.${service}.tag = \"${IMAGE_TAG}\"' values.yaml"
+              }
+
+              sh """
+                git add values.yaml
+                git commit -m "Update images to ${IMAGE_TAG}"
+                git push origin main
+              """
             }
-
-            sh """
-              git add values.yaml
-              git commit -m "Update images to ${IMAGE_TAG}"
-              git push origin main
-            """
           }
         }
       }
