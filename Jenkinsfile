@@ -112,7 +112,6 @@ spec:
                   git fetch origin
                   git checkout -B main origin/main
 
-                  git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/RiteshKaushal57/CI-CD.git
                 """
 
                 services.each { service ->
@@ -122,7 +121,7 @@ spec:
                 sh """
                   git add values.yaml
                   git commit -m "Update images to ${IMAGE_TAG}" || echo "Nothing to commit"
-                  git push origin main
+                  git push https://${GIT_USER}:${GIT_TOKEN}@github.com/RiteshKaushal57/CI-CD.git main
                 """
               }
             }
