@@ -29,6 +29,8 @@ spec:
 # TtqPKUhiDuLJbkjJncj6y1
 # dE3Thpr5kzIWr3o7pN1asF
 
+# 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
+
 # helm uninstall jenkins -n jenkins
 # kubectl delete pvc -n jenkins --all
 # helm repo add jenkinsci https://charts.jenkins.io

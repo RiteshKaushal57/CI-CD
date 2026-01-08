@@ -8,10 +8,8 @@ spec:
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
-    command:
-    - /busybox/sleep
-    args:
-    - "999999"
+    command: ["/busybox/sleep"]
+    args: ["999999"]
     tty: true
     volumeMounts:
     - name: docker-config
@@ -21,8 +19,7 @@ spec:
 
   - name: tools
     image: ritesh57/ci-tools:1.0
-    command:
-    - cat
+    command: ["cat"]
     tty: true
     volumeMounts:
     - name: workspace-volume
@@ -42,8 +39,13 @@ spec:
     }
   }
 
+  options {
+    disableConcurrentBuilds()
+    timestamps()
+  }
+
   environment {
-    REGISTRY = "ritesh57"
+    REGISTRY  = "ritesh57"
     IMAGE_TAG = "${BUILD_NUMBER}"
   }
 
@@ -84,6 +86,7 @@ spec:
       steps {
         container('tools') {
           script {
+
             def services = [
               "api-gateway",
               "auth-service",
@@ -91,31 +94,41 @@ spec:
               "frontend"
             ]
 
-            dir("CD/helm/mern-chart") {
+            withCredentials([
+              usernamePassword(
+                credentialsId: 'github-creds',
+                usernameVariable: 'GIT_USER',
+                passwordVariable: 'GIT_TOKEN'
+              )
+            ]) {
 
-              sh """
-              git config --global --add safe.directory ${WORKSPACE}
-              git config --global user.email "riteshkaushal57@gmail.com"
-              git config --global user.name "Ritesh Kaushal"
+              dir("CD/helm/mern-chart") {
 
-              git fetch origin
-              git checkout -b main origin/main
-              """
+                sh """
+                  git config --global --add safe.directory ${WORKSPACE}
+                  git config --global user.email "riteshkaushal57@gmail.com"
+                  git config --global user.name "Ritesh Kaushal"
 
-              services.each { service ->
-                sh "yq -i '.services.${service}.tag = \"${IMAGE_TAG}\"' values.yaml"
+                  git fetch origin
+                  git checkout -B main origin/main
+
+                  git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/RiteshKaushal57/CI-CD.git
+                """
+
+                services.each { service ->
+                  sh "yq -i '.services.${service}.tag = \"${IMAGE_TAG}\"' values.yaml"
+                }
+
+                sh """
+                  git add values.yaml
+                  git commit -m "Update images to ${IMAGE_TAG}" || echo "Nothing to commit"
+                  git push origin main
+                """
               }
-
-              sh """
-                git add values.yaml
-                git commit -m "Update images to ${IMAGE_TAG}"
-                git push origin main
-              """
             }
           }
         }
       }
     }
-
   }
-}     
+}
