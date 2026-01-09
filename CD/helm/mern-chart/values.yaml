@@ -1,3 +1,6 @@
+imagePullSecrets:
+  - name: dockerhub-creds
+
 services:
   api-gateway:
     enabled: true
