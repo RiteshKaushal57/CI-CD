@@ -74,8 +74,8 @@ spec:
                   --context ${WORKSPACE}/CI/${service} \
                   --dockerfile ${WORKSPACE}/CI/${service}/Dockerfile \
                   --destination ${REGISTRY}/${service}:${IMAGE_TAG} \
-                  --verbosity=info
-                  --cache=false
+                  --verbosity=info \
+                  
               """
             }
           }
