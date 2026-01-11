@@ -14,18 +14,18 @@ services:
     enabled: true
     image:
       repository: ritesh57/auth-service
-      tag: "28"
+      tag: "29"
     replicas: 2
     port: 8081
-    tag: "28"
+    tag: "29"
   order-service:
     enabled: true
     image:
       repository: ritesh57/order-service
-      tag: "28"
+      tag: "29"
     replicas: 2
     port: 8082
-    tag: "28"
+    tag: "29"
   frontend:
     enabled: true
     image:
