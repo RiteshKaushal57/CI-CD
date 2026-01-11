@@ -1,7 +1,5 @@
 imagePullSecrets:
   - name: dockerhub-creds
-
-imagePullPolicy: Always
 services:
   api-gateway:
     enabled: true
