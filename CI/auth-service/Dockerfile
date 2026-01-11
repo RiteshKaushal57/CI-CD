@@ -2,10 +2,13 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install --only=production
+# Explicit path – NO glob
+COPY package.json /app/package.json
 
-COPY . .
+RUN npm install --omit=dev
+
+# Explicit copy
+COPY index.js /app/index.js
 
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["node", "index.js"]
