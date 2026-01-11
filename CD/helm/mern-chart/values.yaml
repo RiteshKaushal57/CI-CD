@@ -1,14 +1,15 @@
 imagePullSecrets:
   - name: dockerhub-creds
+
 services:
   api-gateway:
     enabled: true
     image:
       repository: ritesh57/api-gateway
-      tag: "28"
+      tag: "29"
     replicas: 2
     port: 8080
-    tag: "29"
+
   auth-service:
     enabled: true
     image:
@@ -16,7 +17,7 @@ services:
       tag: "29"
     replicas: 2
     port: 8081
-    tag: "29"
+
   order-service:
     enabled: true
     image:
@@ -24,15 +25,15 @@ services:
       tag: "29"
     replicas: 2
     port: 8082
-    tag: "29"
+
   frontend:
     enabled: true
     image:
       repository: ritesh57/frontend
-      tag: "28"
+      tag: "29"
     replicas: 1
     port: 80
-    tag: "29"
+
 # # Default values for mern-chart.
 # # This is a YAML-formatted file.
 # # Declare variables to be passed into your templates.

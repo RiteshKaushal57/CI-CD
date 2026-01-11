@@ -20,6 +20,7 @@ spec:
       containers:
         - name: {{ $name }}
           image: "{{ $svc.image.repository }}:{{ $svc.image.tag }}"
+          imagePullPolicy: Always
           ports:
             - containerPort: {{ $svc.port }}
 ---
