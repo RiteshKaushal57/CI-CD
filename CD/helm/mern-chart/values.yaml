@@ -1,6 +1,5 @@
 imagePullSecrets:
   - name: dockerhub-creds
-
 services:
   api-gateway:
     enabled: true
@@ -9,7 +8,7 @@ services:
       tag: "28"
     replicas: 2
     port: 8080
-    tag: "28"
+    tag: "29"
   auth-service:
     enabled: true
     image:
@@ -17,7 +16,7 @@ services:
       tag: "28"
     replicas: 2
     port: 8081
-    tag: "28"
+    tag: "29"
   order-service:
     enabled: true
     image:
@@ -25,7 +24,7 @@ services:
       tag: "28"
     replicas: 2
     port: 8082
-    tag: "28"
+    tag: "29"
   frontend:
     enabled: true
     image:
@@ -33,7 +32,7 @@ services:
       tag: "28"
     replicas: 1
     port: 80
-    tag: "28"
+    tag: "29"
 # # Default values for mern-chart.
 # # This is a YAML-formatted file.
 # # Declare variables to be passed into your templates.
@@ -51,7 +50,6 @@ services:
 # # This is to override the chart name.
 # nameOverride: ""
 # fullnameOverride: ""
-
 # # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
 # serviceAccount:
 #   # Specifies whether a service account should be created.
@@ -63,17 +61,14 @@ services:
 #   # The name of the service account to use.
 #   # If not set and create is true, a name is generated using the fullname template.
 #   name: ""
-
 # # This is for setting Kubernetes Annotations to a Pod.
 # # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 # podAnnotations: {}
 # # This is for setting Kubernetes Labels to a Pod.
 # # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 # podLabels: {}
-
 # podSecurityContext: {}
 #   # fsGroup: 2000
-
 # securityContext: {}
 #   # capabilities:
 #   #   drop:
