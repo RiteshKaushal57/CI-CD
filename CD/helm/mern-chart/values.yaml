@@ -21,10 +21,10 @@ services:
     enabled: true
     image:
       repository: ritesh57/order-service
-      tag: "1"
+      tag: "2"
     replicas: 2
     port: 8082
-    tag: "1"
+    tag: "2"
   frontend:
     enabled: true
     image:
