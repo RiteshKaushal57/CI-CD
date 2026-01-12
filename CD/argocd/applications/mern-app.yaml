@@ -1,27 +1,19 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
 metadata:
   name: mern-app
   namespace: argocd
   annotations:
-    # Enable Git write-back
+    argocd-image-updater.argoproj.io/enabled: "true"
+
     argocd-image-updater.argoproj.io/write-back-method: git
     argocd-image-updater.argoproj.io/git-branch: main
-    argocd-image-updater.argoproj.io/enable: "true"
-    # Registry
-    argocd-image-updater.argoproj.io/registries: Docker Hub
+    argocd-image-updater.argoproj.io/update-strategy: newest-build
 
-    # Update strategy for numeric tags
-    argocd-image-updater.argoproj.io/update-strategy: newest-tag
-    argocd-image-updater.argoproj.io/allow-tags: regexp:^\\d+$
-    # Image list (comma-separated!)
     argocd-image-updater.argoproj.io/image-list: |
-      api=ritesh57/api-gateway,
-      auth=ritesh57/auth-service,
-      order=ritesh57/order-service,
+      api=ritesh57/api-gateway
+      auth=ritesh57/auth-service
+      order=ritesh57/order-service
       frontend=ritesh57/frontend
 
-    # Helm mappings
     argocd-image-updater.argoproj.io/api.helm.image-name: services.api-gateway.image.repository
     argocd-image-updater.argoproj.io/api.helm.image-tag: services.api-gateway.image.tag
 
