@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: mern-app
+  namespace: argocd
+spec:
+  application:
+    name: mern-app
+
+  updateStrategy:
+    type: newest-build
+
+  writeBack:
+    method: git
+    git:
+      branch: main
+
+  images:
+    - name: api
+      image: ritesh57/api-gateway
+      helm:
+        image:
+          name: services.api-gateway.image.repository
+          tag: services.api-gateway.image.tag
+
+    - name: auth
+      image: ritesh57/auth-service
+      helm:
+        image:
+          name: services.auth-service.image.repository
+          tag: services.auth-service.image.tag
+
+    - name: order
+      image: ritesh57/order-service
+      helm:
+        image:
+          name: services.order-service.image.repository
+          tag: services.order-service.image.tag
+
+    - name: frontend
+      image: ritesh57/frontend
+      helm:
+        image:
+          name: services.frontend.image.repository
+          tag: services.frontend.image.tag
