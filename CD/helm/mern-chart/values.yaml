@@ -8,7 +8,7 @@ services:
       tag: "3"
     replicas: 2
     port: 8080
-    tag: "4"
+  
   auth-service:
     enabled: true
     image:
@@ -16,7 +16,7 @@ services:
       tag: "3"
     replicas: 2
     port: 8081
-    tag: "4"
+  
   order-service:
     enabled: true
     image:
@@ -24,7 +24,7 @@ services:
       tag: "3"
     replicas: 2
     port: 8082
-    tag: "4"
+
   frontend:
     enabled: true
     image:
@@ -32,7 +32,7 @@ services:
       tag: "3"
     replicas: 1
     port: 80
-    tag: "4"
+
 # # Default values for mern-chart.
 # # This is a YAML-formatted file.
 # # Declare variables to be passed into your templates.
