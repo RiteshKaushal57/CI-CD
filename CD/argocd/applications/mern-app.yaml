@@ -12,8 +12,8 @@ metadata:
     argocd-image-updater.argoproj.io/registries: Docker Hub
 
     # Update strategy for numeric tags
-    argocd-image-updater.argoproj.io/update-strategy: latest
-
+    argocd-image-updater.argoproj.io/update-strategy: newest
+    argocd-image-updater.argoproj.io/allow-tags: regexp:^\\d+$
     # Image list (comma-separated!)
     argocd-image-updater.argoproj.io/image-list: |
       api=ritesh57/api-gateway,
