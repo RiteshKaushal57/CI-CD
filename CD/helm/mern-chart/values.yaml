@@ -6,7 +6,7 @@ services:
     enabled: true
     image:
       repository: ritesh57/api-gateway
-      tag: "0"
+      tag: "1"
     replicas: 2
     port: 8080
 
@@ -14,7 +14,7 @@ services:
     enabled: true
     image:
       repository: ritesh57/auth-service
-      tag: "0"
+      tag: "1"
     replicas: 2
     port: 8081
 
@@ -22,7 +22,7 @@ services:
     enabled: true
     image:
       repository: ritesh57/order-service
-      tag: "0"
+      tag: "1"
     replicas: 2
     port: 8082
 
@@ -30,7 +30,7 @@ services:
     enabled: true
     image:
       repository: ritesh57/frontend
-      tag: "0"
+      tag: "1"
     replicas: 1
     port: 80
 
