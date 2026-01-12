@@ -1,31 +1,8 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
   name: mern-app
   namespace: argocd
-  annotations:
-    argocd-image-updater.argoproj.io/enabled: "true"
-
-    argocd-image-updater.argoproj.io/write-back-method: git
-    argocd-image-updater.argoproj.io/git-branch: main
-    argocd-image-updater.argoproj.io/update-strategy: newest-build
-
-    argocd-image-updater.argoproj.io/image-list: |
-      api=ritesh57/api-gateway
-      auth=ritesh57/auth-service
-      order=ritesh57/order-service
-      frontend=ritesh57/frontend
-
-    argocd-image-updater.argoproj.io/api.helm.image-name: services.api-gateway.image.repository
-    argocd-image-updater.argoproj.io/api.helm.image-tag: services.api-gateway.image.tag
-
-    argocd-image-updater.argoproj.io/auth.helm.image-name: services.auth-service.image.repository
-    argocd-image-updater.argoproj.io/auth.helm.image-tag: services.auth-service.image.tag
-
-    argocd-image-updater.argoproj.io/order.helm.image-name: services.order-service.image.repository
-    argocd-image-updater.argoproj.io/order.helm.image-tag: services.order-service.image.tag
-
-    argocd-image-updater.argoproj.io/frontend.helm.image-name: services.frontend.image.repository
-    argocd-image-updater.argoproj.io/frontend.helm.image-tag: services.frontend.image.tag
-
 spec:
   project: default
   source:
