@@ -1,6 +1,5 @@
 imagePullSecrets:
   - name: dockerhub-creds
-
 services:
   api-gateway:
     enabled: true
@@ -9,7 +8,7 @@ services:
       tag: "1"
     replicas: 2
     port: 8080
-
+    tag: "1"
   auth-service:
     enabled: true
     image:
@@ -17,7 +16,7 @@ services:
       tag: "1"
     replicas: 2
     port: 8081
-
+    tag: "1"
   order-service:
     enabled: true
     image:
@@ -25,7 +24,7 @@ services:
       tag: "1"
     replicas: 2
     port: 8082
-
+    tag: "1"
   frontend:
     enabled: true
     image:
@@ -33,7 +32,7 @@ services:
       tag: "1"
     replicas: 1
     port: 80
-
+    tag: "1"
 # # Default values for mern-chart.
 # # This is a YAML-formatted file.
 # # Declare variables to be passed into your templates.
@@ -77,14 +76,12 @@ services:
 #   # readOnlyRootFilesystem: true
 #   # runAsNonRoot: true
 #   # runAsUser: 1000
-
 # # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 # service:
 #   # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 #   type: ClusterIP
 #   # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
 #   port: 80
-
 # # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 # ingress:
 #   enabled: false
@@ -101,7 +98,6 @@ services:
 #     # - secretName: chart-example-tls
 #     #   hosts:
 #     #     - chart-example.local
-
 # # -- Expose the service via gateway-api HTTPRoute
 # # Requires Gateway API resources and suitable controller installed within the cluster
 # # (see: https://gateway-api.sigs.k8s.io/guides/)
