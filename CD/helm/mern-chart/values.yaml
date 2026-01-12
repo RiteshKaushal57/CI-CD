@@ -8,7 +8,7 @@ services:
       tag: "1"
     replicas: 2
     port: 8080
-    tag: "1"
+    tag: "2"
   auth-service:
     enabled: true
     image:
@@ -16,7 +16,7 @@ services:
       tag: "1"
     replicas: 2
     port: 8081
-    tag: "1"
+    tag: "2"
   order-service:
     enabled: true
     image:
@@ -32,7 +32,7 @@ services:
       tag: "1"
     replicas: 1
     port: 80
-    tag: "1"
+    tag: "2"
 # # Default values for mern-chart.
 # # This is a YAML-formatted file.
 # # Declare variables to be passed into your templates.
@@ -135,7 +135,6 @@ services:
 #   #     headers:
 #   #     - name: version
 #   #       value: v2
-
 # resources: {}
 #   # We usually recommend not to specify default resources and to leave this as a conscious
 #   # choice for the user. This also increases chances charts run on environments with little
@@ -147,7 +146,6 @@ services:
 #   # requests:
 #   #   cpu: 100m
 #   #   memory: 128Mi
-
 # # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 # livenessProbe:
 #   httpGet:
@@ -157,7 +155,6 @@ services:
 #   httpGet:
 #     path: /
 #     port: http
-
 # # This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 # autoscaling:
 #   enabled: false
@@ -165,7 +162,6 @@ services:
 #   maxReplicas: 100
 #   targetCPUUtilizationPercentage: 80
 #   # targetMemoryUtilizationPercentage: 80
-
 # # Additional volumes on the output Deployment definition.
 # volumes: []
 #   # - name: foo
